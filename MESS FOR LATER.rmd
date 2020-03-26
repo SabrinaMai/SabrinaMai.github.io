@@ -1,0 +1,59 @@
+---
+title: "Quick R Tutorial"
+author: "Sabrina Mai Nielsen"
+date: "23 mar 2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+
+
+https://www.emilyzabor.com/tutorials/rmarkdown_websites_tutorial.html#personal_websites
+
+http://jekyllthemes.org/page2/
+
+http://www.elliothenry.com/r-markdown-to-website/
+
+https://leachjim.com/post/using-rmarkdown-and-jekyll/
+
+
+https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html#site-navigation
+
+https://resources.github.com/whitepapers/github-and-rstudio/
+
+https://rmarkdown.rstudio.com/lesson-13.html
+
+
+tea an stats https://selbydavid.com/
+
+https://holtzy.github.io/Pimp-my-rmd/#theme
+
+https://www.yan-holtz.com/blog/pimpMyRmd.html
+
+https://www.r-graph-gallery.com/
+
+
+

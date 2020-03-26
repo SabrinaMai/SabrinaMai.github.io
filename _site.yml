@@ -1,9 +1,11 @@
-name: "my-website"
+name: "Mai Statistics"
 navbar:
-  title: "My Website"
+  title: "Mai Statistics"
   left:
     - text: "Home"
       href: index.html
+    - text: "Quick R Tutorial"
+      href: Quick_R_Tutorial.html
     - text: "About"
       href: about.html
   right:
