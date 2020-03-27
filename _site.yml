@@ -6,9 +6,9 @@ navbar:
     - text: "Home"
       href: index.html
     - text: "R Graphs"
-      href: R_Graphs.html
+      href: R-Graphs.html
     - text: "Quick R Tutorial"
-      href: Quick_R_Tutorial.html
+      href: Quick-R-Tutorial.html
     - text: "About"
       href: about.html
   right:

@@ -21,6 +21,9 @@ img1_path <- "images//AboutMePhoto.png"
 ```
 
 <center>
+\  
+\ 
+
 #About me
 
 ```{r include=TRUE}

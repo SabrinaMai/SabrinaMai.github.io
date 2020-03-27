@@ -11,4 +11,100 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## PENDING
+#Getting started - very quick
+
+* 1. Download R from https://www.r-project.org/
+
+* 2. Open the R program
+
+* 3. Click 'File' -> 'New Script', and you are ready!
+
+You now have two windows - one is the Editor window (the empty one) - this is where you will be writing code. The other window is the Console window. This is where the code you have been running will be, as well as the results if you are doing calculations. 
+
+
+
+
+```{r, include=FALSE}
+
+library(knitr)    # For knitting document and include_graphics function
+library(ggplot2)  # For plotting
+library(png)      # For grabbing the dimensions of png files
+
+img1_path <- "images//Rtuturial_Rscreenshot0.png"
+
+```
+
+
+\  
+\ 
+
+<center>
+```{r include=TRUE}
+include_graphics(img1_path)
+```
+</center>
+
+
+**Remember this:**
+
+* To run the code, type 'Ctrl' + 'r' on your keyboard - this will execute the code on the line where the marker is placed in the Editor window. You can run all code in a Editor window by typing 'Ctrl' + 'a', and then 'Ctrl' + 'r'.
+
+* When you save your codes in the Editor window, click 'File' -> 'Save as'. Remember to write '.r' after the filename.
+
+* If you want to open a R file, you need to open it within the program (and not simply by clicking on it), using 'File' -> 'Open script'.
+
+* Save often - R does not save by itself.
+
+
+\ 
+
+#Getting a feeling of R
+
+###Use R as a calculator
+
+Try to type the following in the Editor window:
+
+```{r}
+ 10+98
+
+ 10 + 98
+
+ 10+
+ 98
+
+ sum(10,98)
+
+```
+
+
+Now, run all the code by typing 'Ctrl' + 'a', and then 'Ctrl' + 'r'.
+The results should appear in the Console window.  
+
+As you may notice, R does not care about spaces or line shifts.
+
+
+
+```{r}
+ 31-7	
+
+ 10*5
+
+ 10/5
+
+ sqrt(9)
+
+ 3^2
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
