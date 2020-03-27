@@ -1,5 +1,5 @@
 ---
-title: "Quick R Tutorial"
+title: "R Graphs"
 author: "Sabrina Mai Nielsen"
 output:
   html_document:
