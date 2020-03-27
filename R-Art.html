@@ -354,7 +354,7 @@ div.tocify {
   <a href="index.html">Home</a>
 </li>
 <li>
-  <a href="Quick-R-Tutorial.html">Quick R Tutorial</a>
+  <a href="Quick-R-Tutorial.html">R Basics</a>
 </li>
 <li>
   <a href="R-Graphs.html">R Graphs</a>
@@ -407,13 +407,8 @@ div.tocify {
 <center>
 </center>
 <p> </p>
-<pre class="r"><code>library(ggplot2)</code></pre>
-<pre><code>## Registered S3 methods overwritten by &#39;ggplot2&#39;:
-##   method         from 
-##   [.quosures     rlang
-##   c.quosures     rlang
-##   print.quosures rlang</code></pre>
-<pre class="r"><code>a=pi*(3-sqrt(5))
+<pre class="r"><code>library(ggplot2)
+a=pi*(3-sqrt(5))
 n=500
 ggplot(data.frame(r=sqrt(1:n),t=(1:n)*a),
        aes(x=r*cos(t),y=r*sin(t)))+
