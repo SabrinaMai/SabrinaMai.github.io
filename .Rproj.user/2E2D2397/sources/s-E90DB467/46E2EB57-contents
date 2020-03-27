@@ -14,10 +14,10 @@ navbar:
   right:
     - icon: fa-envelope fa-lg
       href: about.html #This should be contact...; add Parker page? Pub ID ?
-    - icon: fa-github fa-lg
-      href: https://github.com/SabrinaMai
     - icon: fa-linkedin fa-lg
       href: https://www.linkedin.com/in/sabrinamainielsen/
+    - icon: fa-github fa-lg
+      href: https://github.com/SabrinaMai
 output:
   html_document:
     theme: cosmo
