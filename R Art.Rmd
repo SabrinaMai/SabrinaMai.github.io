@@ -1,0 +1,83 @@
+---
+title: "R Art"
+author: "Sabrina Mai Nielsen"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+\ 
+
+#Graphical
+
+
+```{r eval=FALSE, include=FALSE}
+library(ggplot2)
+library(tidyverse)
+df <- data.frame(x=0, y=0)
+for (i in 2:500){
+  df[i,1] <- df[i-1,1]+((0.98)^i)*cos(i)
+  df[i,2] <- df[i-1,2]+((0.98)^i)*sin(i)   
+}
+ggplot(df, aes(x,y, fill="red")) + 
+  geom_polygon()+
+  theme_void() +
+  theme(legend.position = "none")
+
+
+Credit: https://fronkonstin.com/2018/09/06/tweetable-mathematical-art-with-r/
+```
+
+
+\ 
+<center>
+```{r eval=FALSE, include=FALSE}
+library(ggplot2)
+ggplot(df, aes(x,y, fill="red")) + 
+  geom_polygon()+
+  theme_void() +
+  theme(legend.position = "none")
+```
+</center>
+
+\ 
+
+
+```{r eval=TRUE, fig.height=6, fig.width=6, include=TRUE}
+library(ggplot2)
+a=pi*(3-sqrt(5))
+n=500
+ggplot(data.frame(r=sqrt(1:n),t=(1:n)*a),
+       aes(x=r*cos(t),y=r*sin(t)))+
+  geom_point(aes(x=0,y=0),
+             size=190,
+             colour="lightblue")+
+  geom_point(aes(size=(n-r)),
+             shape=21,fill="gold",
+             colour="gray90")+
+  theme_void()+theme(legend.position="none")
+```
+Credit: https://fronkonstin.com/2018/09/06/tweetable-mathematical-art-with-r/
+
+\ 
+\ 
+
+
+**Other interesting pages**
+
+* https://codingclubuc3m.rbind.io/post/2019-10-15/
+* https://softologyblog.wordpress.com/2018/01/04/the-stepping-stone-cellular-automaton/
+* https://github.com/aschinchon/the-chaos-game
+* https://www.r-bloggers.com/turn-a-square-generative-art/
+* https://benjamincongdon.me/blog/2019/03/07/Generative-Doodling/
+* https://www.r-bloggers.com/visual-art-with-pi-using-ggplot2-circlize/
+* https://www.r-graph-gallery.com/137-spring-shapes-data-art.html
+* https://statisticsblog.com/2010/09/04/weekend-art-in-r-part-4/
+* https://blog.revolutionanalytics.com/2018/04/mathematical-art-in-r-.html
+
+

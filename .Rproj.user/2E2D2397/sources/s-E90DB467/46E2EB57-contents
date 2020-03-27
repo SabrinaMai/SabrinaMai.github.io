@@ -5,10 +5,12 @@ navbar:
   left:
     - text: "Home"
       href: index.html
+    - text: "R Basics"
+      href: Quick-R-Tutorial.html
     - text: "R Graphs"
       href: R-Graphs.html
-    - text: "Quick R Tutorial"
-      href: Quick-R-Tutorial.html
+    - text: "R Art"
+      href: R-Art.html
     - text: "About"
       href: about.html
   right:
