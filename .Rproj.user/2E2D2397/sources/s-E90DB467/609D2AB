@@ -2,18 +2,18 @@
     "collab_server" : "",
     "contents" : "",
     "created" : 1585264472675.000,
-    "dirty" : false,
+    "dirty" : true,
     "encoding" : "UTF-8",
     "folds" : "",
-    "hash" : "3933000325",
+    "hash" : "0",
     "id" : "609D2AB",
     "lastKnownWriteTime" : 1585272490,
-    "last_content_update" : 1585272490304,
+    "last_content_update" : 1585272679307,
     "path" : "H:/Sabrina Mai Nielsen/R GALLERY/SabrinaMai.github.io/Quick R Tutorial.rmd",
     "project_path" : "Quick R Tutorial.rmd",
     "properties" : {
-        "cursorPosition" : "71,4",
-        "scrollLine" : "35"
+        "cursorPosition" : "108,8",
+        "scrollLine" : "48"
     },
     "relative_order" : 2,
     "source_on_save" : false,

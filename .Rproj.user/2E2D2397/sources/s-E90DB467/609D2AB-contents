@@ -30,8 +30,6 @@ library(knitr)    # For knitting document and include_graphics function
 library(ggplot2)  # For plotting
 library(png)      # For grabbing the dimensions of png files
 
-img1_path <- "images//Rtuturial_Rscreenshot0.png"
-
 ```
 
 
@@ -39,11 +37,13 @@ img1_path <- "images//Rtuturial_Rscreenshot0.png"
 \ 
 
 <center>
-```{r include=TRUE}
+```{r echo=FALSE}
+img1_path <- "images//Rtuturial_Rscreenshot0.png"
 include_graphics(img1_path)
 ```
 </center>
 
+\
 
 **Remember this:**
 
@@ -83,6 +83,21 @@ The results should appear in the Console window.
 As you may notice, R does not care about spaces or line shifts.
 
 
+\  
+\ 
+
+Now your screen should look like this:
+<center>
+```{r echo=FALSE}
+img1_path <- "images//Rtuturial_Rscreenshot0.png"
+include_graphics(img1_path)
+```
+</center>
+
+
+\ 
+
+Further simple calculations:
 
 ```{r}
  31-7	
@@ -94,6 +109,8 @@ As you may notice, R does not care about spaces or line shifts.
  sqrt(9)
 
  3^2
+ 
+ (5+3)*2
 
 ```
 
