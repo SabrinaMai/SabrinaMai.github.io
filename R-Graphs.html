@@ -9,7 +9,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Sabrina Mai Nielsen" />
+<meta name="author" content="by Sabrina Mai Nielsen" />
 
 
 <title>R Graphs</title>
@@ -24,6 +24,7 @@
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
@@ -251,6 +252,9 @@ $(document).ready(function () {
 </style>
 
 <!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
 
 
 
@@ -392,16 +396,138 @@ div.tocify {
 
 <div class="fluid-row" id="header">
 
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
 
 
 <h1 class="title toc-ignore">R Graphs</h1>
-<h4 class="author">Sabrina Mai Nielsen</h4>
+<h4 class="author">by Sabrina Mai Nielsen</h4>
 
 </div>
 
 
-<div id="pending" class="section level2">
-<h2>PENDING</h2>
+<p> </p>
+<div id="line-chart-with-confidence-intervals" class="section level1">
+<h1>Line chart with confidence intervals</h1>
+<p>Let’s try to reproduce panel A in this figure published in BMJ Open by <a href="www.ncbi.nlm.nih.gov/pubmed/29420232">Roos et al. (2018)</a>, where knee surgery (arthroscopic partial meniscectomy) was compare to sham surgery (skin incision only). The graph shows the mean change from baseline at 3 and 24 months in the primary outcome (KOOS<sub>5</sub> score, a higher score is better). Further details can be found in the article.</p>
+   
+<center>
+<img src="images/FIGURE_Roos_2018.png" width="1091" />
+</center>
+<p> </p>
+<div id="read-in-the-data" class="section level3">
+<h3>Read in the data</h3>
+<p>To make it simple, all data needed for the figure is typed into R in this format.</p>
+<pre><code>##   MONTH   Group lsmean lower.CL upper.CL
+## 1     0     APM    0.0      0.0     0.00
+## 2     3     APM   13.9      3.2    24.50
+## 3    24     APM   21.8     11.2    32.40
+## 4     0 Placebo    0.0      0.0     0.00
+## 5     3 Placebo   15.1      4.2    26.07
+## 6    24 Placebo   13.6      3.0    24.20</code></pre>
+<p>Click on ‘CODE’ to see how the data is typed into R - use the same principle for your own data.</p>
+<pre class="r"><code>MONTH &lt;- c(0,3,24,0,3,24)
+Group &lt;- c(&quot;APM&quot;,&quot;APM&quot;,&quot;APM&quot;,&quot;Placebo&quot;,&quot;Placebo&quot;,&quot;Placebo&quot;)
+lsmean &lt;- c(0, 13.9, 21.8, 0, 15.1, 13.6)
+lower.CL &lt;- c(0, 3.2, 11.2, 0, 4.2, 3.0)
+upper.CL &lt;- c(0, 24.5, 32.4, 0, 26.07, 24.2)
+DATA &lt;- data.frame(MONTH, Group, lsmean, lower.CL, upper.CL)
+DATA</code></pre>
+<p> </p>
+</div>
+<div id="the-basic" class="section level3">
+<h3>The Basic</h3>
+<p>This is the most simple plot you can make. This is the essential part of the code for making the plot.</p>
+<p><img src="R-Graphs_files/figure-html/FIG_R1-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Show the code by clicking on ‘CODE’.</p>
+<pre class="r"><code>library(ggplot2) #If the ggplot2 package is not installed, run this: install.packages(&quot;ggplot2&quot;)
+
+ggplot(DATA, aes(x = MONTH, y = lsmean, group = Group)) +
+    geom_line(aes(linetype = Group)) +
+    geom_errorbar(aes(ymin = lower.CL, ymax = upper.CL)) </code></pre>
+<p> </p>
+</div>
+<div id="the-published" class="section level3">
+<h3>The Published</h3>
+<p>To replicate the published figure, some changes in the layout are needed.</p>
+<p><img src="R-Graphs_files/figure-html/FIG_R2-1.png" width="1608" style="display: block; margin: auto;" /></p>
+<p>To fit this figure to your own data, you may want to change the <code>name</code>, <code>limits</code> and <code>breaks</code> specifications in the ‘scale_x_continuous’ and ‘scale_y_continuous’ functions.</p>
+<pre class="r"><code>library(ggplot2) #If the ggplot2 package is not installed, run this: install.packages(&quot;ggplot2&quot;)
+
+pd &lt;- position_dodge(width = 0.1)
+
+ggplot(DATA, aes(x = MONTH, y = lsmean, group = Group)) +
+    geom_line(aes(linetype = Group), size=0.8, position = pd) +
+    geom_errorbar(aes(ymin = lower.CL, ymax = upper.CL), width = 0.7, position = pd, linetype = 1) +
+    geom_point(size = 2, position = pd, color = &quot;black&quot;) +
+    geom_hline(yintercept = 0) +
+    scale_x_continuous(name=&quot;Time (months)&quot;, limits=c(-0.1,25), breaks=c(0,3,24)) +
+    scale_y_continuous(name=expression(&quot;Change in KOOS&quot;[5]), limits=c(-5, 40), 
+                 breaks=c(-5,0,5,10,15,20,25,30,35,40)) +
+    theme(panel.background = element_rect(fill = &quot;white&quot;),
+        axis.line.x = element_line(colour = &quot;black&quot;, size = 1),
+        axis.line.y = element_line(colour = &quot;black&quot;, size = 1), 
+        legend.position=&quot;none&quot;)</code></pre>
+<p> </p>
+</div>
+<div id="the-wild-ones" class="section level3">
+<h3>The Wild Ones</h3>
+<p>Need something special for a powerpoint presentation? I have got you covered. The colors are easy to change.</p>
+<p> </p>
+<p><img src="R-Graphs_files/figure-html/FIG_R3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>library(ggplot2) #If the ggplot2 package is not installed, run this: install.packages(&quot;ggplot2&quot;)
+
+pd &lt;- position_dodge(width = 0.1)
+
+ggplot(DATA, aes(x = MONTH, y = lsmean, group = Group, colour = Group)) +
+    geom_line(size=2, position = pd) +
+    geom_errorbar(aes(ymin = lower.CL, ymax = upper.CL), width = 2, position = pd, linetype = 3) +
+    geom_point(size = 2, position = pd) +
+    geom_hline(yintercept = 0, size=1, colour = &quot;darkgrey&quot;) +
+    scale_x_continuous(name=&quot;Time (months)&quot;, limits=c(-0.1,25), breaks=c(0,3,24)) +
+    scale_y_continuous(name=expression(&quot;Change in KOOS&quot;[5]), limits=c(-5, 40), 
+                 breaks=c(-5,0,5,10,15,20,25,30,35,40)) +
+    scale_color_manual(values=c(&#39;green&#39;,&#39;deeppink1&#39;))+
+    theme(axis.title.x = element_text(colour = &quot;white&quot;),
+        axis.title.y = element_text(colour = &quot;white&quot;)) +
+    theme(plot.background = element_rect(fill = &quot;black&quot;),
+        panel.background = element_rect(fill = &quot;black&quot;),
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(),
+        axis.line.x = element_line(colour = &quot;darkgrey&quot;, size = 1),
+        axis.line.y = element_line(colour = &quot;darkgrey&quot;, size = 1), 
+        legend.position=&quot;none&quot;) +
+    annotate(geom=&quot;text&quot;, x=21, y=23, label=&quot;AMP&quot;, colour=&quot;green&quot;, size=5, fontface=&quot;bold&quot;, angle=10) +
+    annotate(geom=&quot;text&quot;, x=21, y=16, label=&quot;Placebo&quot;, colour=&quot;deeppink1&quot;, size=5, fontface=&quot;bold&quot;, angle=-2)</code></pre>
+<p> </p>
+<p><img src="R-Graphs_files/figure-html/FIG_R4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>library(ggplot2) #If the ggplot2 package is not installed, run this: install.packages(&quot;ggplot2&quot;)
+library(grid) #If the grid package is not installed, run this: install.packages(&quot;grid&quot;)
+
+grad = colorRampPalette(c(&quot;red&quot;, &quot;yellow&quot;))(10)
+
+pd &lt;- position_dodge(width = 0.1)
+
+ggplot(DATA, aes(x = MONTH, y = lsmean, group = Group)) +
+    annotation_custom(rasterGrob(grad, width=unit(1,&quot;npc&quot;), height=unit(1,&quot;npc&quot;))) +
+    geom_line(aes(linetype = Group), size = 1, position = pd, colour = &quot;white&quot;) +
+    geom_errorbar(aes(ymin = lower.CL, ymax = upper.CL), width = 2, position = pd, linetype = 3, color = &quot;white&quot;) +
+    geom_point(size = 1, position = pd, color = &quot;white&quot;) +
+    geom_hline(yintercept = 0, size = 0.8, colour = &quot;white&quot;) +
+    geom_text(aes(label = as.factor(lsmean))) +
+    scale_x_continuous(name=&quot;Time (months)&quot;, limits=c(-0.1,25), breaks=c(0,3,24)) +
+    scale_y_continuous(name=expression(&quot;Change in KOOS&quot;[5]), limits=c(-5, 40), 
+                 breaks=c(-5,0,5,10,15,20,25,30,35,40)) +
+    theme(legend.position=&quot;none&quot;,
+        axis.line.x = element_line(colour = &quot;white&quot;, size = 2),
+        axis.line.y = element_line(colour = &quot;white&quot;, size = 2)) </code></pre>
+</div>
 </div>
 
 
@@ -439,6 +565,11 @@ $(document).ready(function () {
 </script>
 
 <!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
 
 <script>
 $(document).ready(function ()  {

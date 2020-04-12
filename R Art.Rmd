@@ -1,6 +1,6 @@
 ---
 title: "R Art"
-author: "Sabrina Mai Nielsen"
+author: "by Sabrina Mai Nielsen"
 output:
   html_document:
     toc: true
@@ -48,7 +48,7 @@ ggplot(df, aes(x,y, fill="red")) +
 \ 
 
 
-```{r eval=TRUE, fig.height=6, fig.width=6, include=TRUE}
+```{r RArt01, echo=FALSE, warning=FALSE, message=FALSE, fig.height=6, fig.width=6, include=TRUE}
 library(ggplot2)
 a=pi*(3-sqrt(5))
 n=500
@@ -62,6 +62,10 @@ ggplot(data.frame(r=sqrt(1:n),t=(1:n)*a),
              colour="gray90")+
   theme_void()+theme(legend.position="none")
 ```
+
+```{r RArt01, eval=FALSE}
+```
+
 Credit: https://fronkonstin.com/2018/09/06/tweetable-mathematical-art-with-r/
 
 \ 
