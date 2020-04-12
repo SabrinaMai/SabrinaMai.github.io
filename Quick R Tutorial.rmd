@@ -49,7 +49,7 @@ include_graphics(img1_path)
 
 * When you save your codes in the Editor window, click 'File' -> 'Save as'. Remember to write '.r' after the filename.
 
-* If you want to open a R file, you need to open it within the program (and not simply by clicking on it), using 'File' -> 'Open script'.
+* If you want to open an R file, you will need to open it within the program (and not simply by clicking on it), using 'File' -> 'Open script'.
 
 * Save often - R does not save by itself.
 
@@ -80,7 +80,9 @@ As you may notice, R does not care about spaces or line shifts.
 
 \  
 \ 
+
 Now your screen should look like this:
+
 <center>
 ```{r echo=FALSE}
 img1_path <- "images//Rtuturial_Rscreenshot1.png"
@@ -110,9 +112,9 @@ Further simple calculations can be written like this:
 
 In R, it is possible to assign values to letters or word:
 ```{r}
-#Assign value (everything written after '#' will be ignoret and is useful for notes)
- a<-2
- b<-5
+#Assign value (FYI everything written after '#' will be ignoret and is useful for notes)
+ a <- 2
+ b <- 5
  a+b
 
 ```
@@ -122,8 +124,8 @@ In R, it is possible to assign values to letters or word:
 Or make a function:
 ```{r}
 #Funtions
- MyFunction<-function(x){3*x+5}
- MyOtherFunction<-function(z){z^2+50}
+ MyFunction <- function(x){3*x+5}
+ MyOtherFunction <- function(z){z^2+50}
 
  MyFunction(2)
  MyOtherFunction(2)
@@ -135,14 +137,16 @@ Or make a function:
 
 ###Plots in R
 
-When you want to make plots in R, the function `plot()` is simple and relatively easy to use. The plots will appear in a new window, a R Graph window.
+When you want to make plots in R, the function `plot()` is simple and relatively easy to use. The plots will appear in a new window, an R Graph window.
 ```{r, eval=FALSE}
 plot(MyOtherFunction)
 ```
 
 \  
 \ 
+
 Now your screen should look like this:
+
 <center>
 ```{r echo=FALSE}
 img1_path <- "images//Rtuturial_Rscreenshot2.png"
@@ -152,7 +156,7 @@ include_graphics(img1_path)
 
 \  
 
-In addition to the functions build into R as default, you can install packages for your R program. First time you use a package, you need to install it with `install.packages()`. For using the package, you need to load the package everytime you open R with `librarary()`. If you are asked, about CRAN mirrors, you may just pick '0-Cloud [https]'.
+In addition to the functions build into R as default, you can install packages for your R program. First time you use a package, you will need to install it with `install.packages()`. For using the package, you need to load the package everytime you open your R program, with `librarary()`. If you are asked, about CRAN mirrors, you may just pick the one called '0-Cloud [https]'.
 
 ```{r, eval=FALSE}
 install.packages("ggplot2") #Run only once

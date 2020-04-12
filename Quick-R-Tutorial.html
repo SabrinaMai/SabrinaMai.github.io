@@ -418,7 +418,7 @@ div.tocify {
 <ul>
 <li><p>To run the code, type <code>Ctrl</code> + <code>r</code> on your keyboard - this will execute the code on the line where the marker is placed in the Editor window. You can run all code in a Editor window by typing <code>Ctrl</code> + <code>a</code>, and then <code>Ctrl</code> + <code>r</code>.</p></li>
 <li><p>When you save your codes in the Editor window, click ‘File’ -&gt; ‘Save as’. Remember to write ‘.r’ after the filename.</p></li>
-<li><p>If you want to open a R file, you need to open it within the program (and not simply by clicking on it), using ‘File’ -&gt; ‘Open script’.</p></li>
+<li><p>If you want to open an R file, you will need to open it within the program (and not simply by clicking on it), using ‘File’ -&gt; ‘Open script’.</p></li>
 <li><p>Save often - R does not save by itself.</p></li>
 </ul>
 <p> </p>
@@ -439,7 +439,8 @@ div.tocify {
 <pre><code>## [1] 108</code></pre>
 <p>Now, run all the code by typing <code>Ctrl</code> + <code>a</code>, and then <code>Ctrl</code> + <code>r</code>. The results should appear in the Console window.</p>
 <p>As you may notice, R does not care about spaces or line shifts.</p>
-    Now your screen should look like this:
+<p>   </p>
+<p>Now your screen should look like this:</p>
 <center>
 <img src="images/Rtuturial_Rscreenshot1.png" width="698" />
 </center>
@@ -459,16 +460,16 @@ div.tocify {
 <pre><code>## [1] 16</code></pre>
 <p> </p>
 <p>In R, it is possible to assign values to letters or word:</p>
-<pre class="r"><code>#Assign value (everything written after &#39;#&#39; will be ignoret and is useful for notes)
- a&lt;-2
- b&lt;-5
+<pre class="r"><code>#Assign value (FYI everything written after &#39;#&#39; will be ignoret and is useful for notes)
+ a &lt;- 2
+ b &lt;- 5
  a+b</code></pre>
 <pre><code>## [1] 7</code></pre>
 <p> </p>
 <p>Or make a function:</p>
 <pre class="r"><code>#Funtions
- MyFunction&lt;-function(x){3*x+5}
- MyOtherFunction&lt;-function(z){z^2+50}
+ MyFunction &lt;- function(x){3*x+5}
+ MyOtherFunction &lt;- function(z){z^2+50}
 
  MyFunction(2)</code></pre>
 <pre><code>## [1] 11</code></pre>
@@ -478,14 +479,15 @@ div.tocify {
 </div>
 <div id="plots-in-r" class="section level3">
 <h3>Plots in R</h3>
-<p>When you want to make plots in R, the function <code>plot()</code> is simple and relatively easy to use. The plots will appear in a new window, a R Graph window.</p>
+<p>When you want to make plots in R, the function <code>plot()</code> is simple and relatively easy to use. The plots will appear in a new window, an R Graph window.</p>
 <pre class="r"><code>plot(MyOtherFunction)</code></pre>
-    Now your screen should look like this:
+<p>   </p>
+<p>Now your screen should look like this:</p>
 <center>
 <img src="images/Rtuturial_Rscreenshot2.png" width="644" />
 </center>
 <p> </p>
-<p>In addition to the functions build into R as default, you can install packages for your R program. First time you use a package, you need to install it with <code>install.packages()</code>. For using the package, you need to load the package everytime you open R with <code>librarary()</code>. If you are asked, about CRAN mirrors, you may just pick ‘0-Cloud [https]’.</p>
+<p>In addition to the functions build into R as default, you can install packages for your R program. First time you use a package, you will need to install it with <code>install.packages()</code>. For using the package, you need to load the package everytime you open your R program, with <code>librarary()</code>. If you are asked, about CRAN mirrors, you may just pick the one called ‘0-Cloud [https]’.</p>
 <pre class="r"><code>install.packages(&quot;ggplot2&quot;) #Run only once
 library(ggplot2)
 
