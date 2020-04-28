@@ -1,5 +1,40 @@
 ---
-title: "Mai Statistics"
+title: " "
+output: html_document
 ---
 
-Hello, Website! 
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, include=FALSE)
+```
+
+
+```{r fig.align="center"}
+
+library(knitr)    # For knitting document and include_graphics function
+library(png)      # For grabbing the dimensions of png files
+
+
+img1_path <- "images//LogoMaiStatistics.png"
+
+```
+
+<center>
+\  
+\ 
+
+
+```{r include=TRUE}
+include_graphics(img1_path)
+```
+
+
+\ 
+
+
+Welcome to Mai Statistics, a page providing easy access to R codes for a variety of graphs - ready for you to use. If you are new to R programming, consider following this quick [course](Quick R Tutorial.html) to get you started.
+
+
+</center>
+

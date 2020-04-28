@@ -1,6 +1,6 @@
 ---
 title: "R Graphs"
-author: "by Sabrina Mai Nielsen"
+author: "by S. M. Nielsen"
 output:
   html_document:
     toc: true
@@ -24,7 +24,7 @@ library(png)      # For grabbing the dimensions of png files
 
 # Line chart with confidence intervals
 
-Let's try to reproduce panel A in this figure published in BMJ Open by [Roos et al. (2018)](www.ncbi.nlm.nih.gov/pubmed/29420232), where knee surgery (arthroscopic partial meniscectomy) was compare to sham surgery (skin incision only). The graph shows the mean change from baseline at 3 and 24 months in the primary outcome (KOOS~5~ score, a higher score is better). Further details can be found in the article.
+Let's try to reproduce panel A in this figure published in BMJ Open by <a href="https://www.ncbi.nlm.nih.gov/pubmed/29420232" target="_blank">Roos et al. (2018)</a>, where knee surgery (arthroscopic partial meniscectomy) was compare to sham surgery (skin incision only). The graph shows the mean change from baseline at 3 and 24 months in the primary outcome (KOOS~5~ score, a higher score is better). Further details can be found in the article.
 
 \  
 \ 

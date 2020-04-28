@@ -1,6 +1,6 @@
 ---
 title: "R Art"
-author: "by Sabrina Mai Nielsen"
+author: "by S. M. Nielsen"
 output:
   html_document:
     toc: true
