@@ -54,10 +54,11 @@ LL_sham <- c(1.5,1.4,1.0,0.8,0.6,1.0)
 UL_usual <- c(5.0,4.9,4.2,4.6,4.0,4.7)
 LL_usual <- c(2.4,2.1,1.8,2.0,2.0,1.8)
 
-DATA <- as.data.frame(cbind(TIME, EST_manual,EST_sham,EST_usual,
+DATA <- as.data.frame(cbind(TIME,
+                            EST_manual,EST_sham,EST_usual,
                             UL_manual,UL_sham,UL_usual,
                             LL_manual,LL_sham,LL_usual))
-DATA
+cbind(TIMElabel,DATA)
 ```
 
 Click on 'CODE' to see how the data is typed into R - use the same principle for your own data.

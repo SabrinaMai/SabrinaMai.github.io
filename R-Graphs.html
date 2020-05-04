@@ -427,20 +427,20 @@ div.tocify {
 <div id="read-in-the-data" class="section level3">
 <h3>Read in the data</h3>
 <p>To make it simple, all data needed for the figure is typed into R in this format.</p>
-<pre><code>##   TIME EST_manual EST_sham EST_usual UL_manual UL_sham UL_usual LL_manual
-## 1    1        3.8      4.1       3.7       5.1     6.7      5.0       2.4
-## 2    2        2.7      3.1       3.5       4.0     4.7      4.9       1.3
-## 3    3        2.0      2.4       3.0       3.3     3.8      4.2       0.7
-## 4    4        1.8      2.3       3.3       3.3     3.8      4.6       0.3
-## 5    5        1.7      2.3       3.0       3.0     4.0      4.0       0.3
-## 6    6        1.4      2.5       3.3       2.7     4.1      4.7       0.1
-##   LL_sham LL_usual
-## 1     1.5      2.4
-## 2     1.4      2.1
-## 3     1.0      1.8
-## 4     0.8      2.0
-## 5     0.6      2.0
-## 6     1.0      1.8</code></pre>
+<pre><code>##   TIMElabel TIME EST_manual EST_sham EST_usual UL_manual UL_sham UL_usual
+## 1  Baseline    1        3.8      4.1       3.7       5.1     6.7      5.0
+## 2       1-4    2        2.7      3.1       3.5       4.0     4.7      4.9
+## 3       5-8    3        2.0      2.4       3.0       3.3     3.8      4.2
+## 4      9-12    4        1.8      2.3       3.3       3.3     3.8      4.6
+## 5     13-16    5        1.7      2.3       3.0       3.0     4.0      4.0
+## 6     17-20    6        1.4      2.5       3.3       2.7     4.1      4.7
+##   LL_manual LL_sham LL_usual
+## 1       2.4     1.5      2.4
+## 2       1.3     1.4      2.1
+## 3       0.7     1.0      1.8
+## 4       0.3     0.8      2.0
+## 5       0.3     0.6      2.0
+## 6       0.1     1.0      1.8</code></pre>
 <p>Click on ‘CODE’ to see how the data is typed into R - use the same principle for your own data. (Please note, as I was not involved in this project, the values are simply just read from the published figure)</p>
 <pre class="r"><code>TIMElabel &lt;- c(&quot;Baseline&quot;,&quot;1-4&quot;,&quot;5-8&quot;,&quot;9-12&quot;,&quot;13-16&quot;,&quot;17-20&quot;)
 TIME &lt;- c(1:6)
@@ -454,10 +454,11 @@ LL_sham &lt;- c(1.5,1.4,1.0,0.8,0.6,1.0)
 UL_usual &lt;- c(5.0,4.9,4.2,4.6,4.0,4.7)
 LL_usual &lt;- c(2.4,2.1,1.8,2.0,2.0,1.8)
 
-DATA &lt;- as.data.frame(cbind(TIME, EST_manual,EST_sham,EST_usual,
+DATA &lt;- as.data.frame(cbind(TIME,
+                            EST_manual,EST_sham,EST_usual,
                             UL_manual,UL_sham,UL_usual,
                             LL_manual,LL_sham,LL_usual))
-DATA</code></pre>
+cbind(TIMElabel,DATA)</code></pre>
 <p> </p>
 </div>
 <div id="the-basic" class="section level3">
