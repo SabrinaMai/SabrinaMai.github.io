@@ -1,0 +1,56 @@
+---
+title: "R Plot tools"
+author: "by S. M. Nielsen"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    code_folding: hide
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, include=FALSE}
+
+library(knitr)    # For knitting document and include_graphics function
+library(ggplot2)  # For plotting
+library(png)      # For grabbing the dimensions of png files
+
+```
+
+\ 
+
+# Colors
+
+In R, many options exist when choosing colors for a plot.
+
+
+\ 
+
+###Colors by names
+
+In R, colors can be called by their names - there are a total of 657 different names. Below, I am showing 555 of these (the remaining 102 are gray 0-100 and are very similar to grey 0-100).
+
+
+```{r FIG_COL1, echo=FALSE, fig.align='center', fig.height=15, fig.width=11, message=FALSE, warning=FALSE, dpi=500}
+#FYI - this is how I made the color overview
+COLNAMES <- colors()[c(1:151,254:662)]
+MATRIX <- matrix(c(1:length(COLNAMES)), ncol=8, nrow=70)
+x = 1:ncol(MATRIX);    y = 1:nrow(MATRIX)
+image(x, y, t(MATRIX), col = COLNAMES, axes=F, ylab="", xlab="")
+text(rep(x,each=length(y)), rep(y,length(x)), COLNAMES, cex=0.7, 
+	col=c(rep("black",23),"white","black",rep("white",5),
+		rep("black",42),"white",rep("black",83),rep("white",20),
+		rep("black",180),"white",rep("black",15),"white",
+		rep("black",12),rep("white",2),rep("black",166)))
+
+```
+
+```{r FIG_COL1, eval=FALSE}
+```
+
+
+\  
+

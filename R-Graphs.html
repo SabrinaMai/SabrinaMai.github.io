@@ -9,7 +9,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="by Sabrina Mai Nielsen" />
+<meta name="author" content="by S. M. Nielsen" />
 
 
 <title>R Graphs</title>
@@ -364,6 +364,9 @@ div.tocify {
   <a href="R-Graphs.html">R Graphs</a>
 </li>
 <li>
+  <a href="R-Plot-tools.html">R Plot tools</a>
+</li>
+<li>
   <a href="R-Art.html">R Art</a>
 </li>
 <li>
@@ -407,21 +410,141 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">R Graphs</h1>
-<h4 class="author">by Sabrina Mai Nielsen</h4>
+<h4 class="author">by S. M. Nielsen</h4>
 
 </div>
 
 
 <p> </p>
-<div id="line-chart-with-confidence-intervals" class="section level1">
-<h1>Line chart with confidence intervals</h1>
+<div id="line-chart-with-confidence-intervals---published-in-bmj-bmj-style" class="section level1">
+<h1>Line chart with confidence intervals - published in BMJ (BMJ style)</h1>
+<p>Let’s try to reproduce the lower part in this figure published in BMJ by <a href="https://www.bmj.com/content/368/bmj.m697" target="_blank">Xu et al. (2020)</a>, where the efficacy of manual acupuncture as prophylactic treatment for patients with episodic migraine was assessed. The graph shows the number of migraine days per 4 weeks (top), and the frequency of migraine attacks per 4 weeks (bottom) during the study period. Further details can be found in the article.</p>
+   
+<center>
+<img src="images/FIGURE_BMJ_2020_Migraine.png" width="342" />
+</center>
+<p> </p>
+<div id="read-in-the-data" class="section level3">
+<h3>Read in the data</h3>
+<p>To make it simple, all data needed for the figure is typed into R in this format.</p>
+<pre><code>##   TIME EST_manual EST_sham EST_usual UL_manual UL_sham UL_usual LL_manual
+## 1    1        3.8      4.1       3.7       5.1     6.7      5.0       2.4
+## 2    2        2.7      3.1       3.5       4.0     4.7      4.9       1.3
+## 3    3        2.0      2.4       3.0       3.3     3.8      4.2       0.7
+## 4    4        1.8      2.3       3.3       3.3     3.8      4.6       0.3
+## 5    5        1.7      2.3       3.0       3.0     4.0      4.0       0.3
+## 6    6        1.4      2.5       3.3       2.7     4.1      4.7       0.1
+##   LL_sham LL_usual
+## 1     1.5      2.4
+## 2     1.4      2.1
+## 3     1.0      1.8
+## 4     0.8      2.0
+## 5     0.6      2.0
+## 6     1.0      1.8</code></pre>
+<p>Click on ‘CODE’ to see how the data is typed into R - use the same principle for your own data. (Please note, as I was not involved in this project, the values are simply just read from the published figure)</p>
+<pre class="r"><code>TIMElabel &lt;- c(&quot;Baseline&quot;,&quot;1-4&quot;,&quot;5-8&quot;,&quot;9-12&quot;,&quot;13-16&quot;,&quot;17-20&quot;)
+TIME &lt;- c(1:6)
+EST_manual &lt;- c(3.8,2.7,2,1.8,1.7,1.4)
+EST_sham &lt;- c(4.1,3.1,2.4,2.3,2.3,2.5)
+EST_usual &lt;- c(3.7,3.5,3,3.3,3.0,3.3)
+UL_manual &lt;- c(5.1,4.0,3.3,3.3,3.0,2.7)
+LL_manual &lt;- c(2.4,1.3,0.7,0.3,0.3,0.1)
+UL_sham &lt;- c(6.7,4.7,3.8,3.8,4.0,4.1)
+LL_sham &lt;- c(1.5,1.4,1.0,0.8,0.6,1.0)
+UL_usual &lt;- c(5.0,4.9,4.2,4.6,4.0,4.7)
+LL_usual &lt;- c(2.4,2.1,1.8,2.0,2.0,1.8)
+
+DATA &lt;- as.data.frame(cbind(TIME, EST_manual,EST_sham,EST_usual,
+                            UL_manual,UL_sham,UL_usual,
+                            LL_manual,LL_sham,LL_usual))
+DATA</code></pre>
+<p> </p>
+</div>
+<div id="the-basic" class="section level3">
+<h3>The Basic</h3>
+<p>This is the most simple plot you can make. This is the essential part of the code for making the plot.</p>
+<p><img src="R-Graphs_files/figure-html/FIG_X1-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Show the code by clicking on ‘CODE’.</p>
+<pre class="r"><code>require(plotrix) #If the plotrix package is not installed, run this: install.packages(&quot;plotrix&quot;)
+
+#Plot
+plot(DATA$TIME, DATA$EST_manual,
+     ylim=c(0,8), xlim=c(0,6), xaxt=&#39;n&#39;,
+     ylab=&quot;No of migraine attacks per 4 weeks&quot;, xlab=&quot;Time (week)&quot;)
+
+#X axis
+axis(1, c(1:6), labels=TIMElabel)
+
+#Lines and CIs
+lines(DATA$TIME, DATA$EST_usual, col=&quot;red&quot;)
+plotCI(DATA$TIME, DATA$EST_usual, ui=UL_usual, li=LL_usual, add=TRUE, col=&quot;red&quot;)
+
+lines(DATA$TIME, DATA$EST_sham, col=&quot;orange&quot;)
+plotCI(DATA$TIME, DATA$EST_sham, ui=UL_sham, li=LL_sham, add=TRUE, col=&quot;orange&quot;)
+
+lines(DATA$TIME, DATA$EST_manual, col=&quot;purple&quot;)
+plotCI(DATA$TIME, DATA$EST_manual, ui=UL_manual, li=LL_manual, add=TRUE, col=&quot;purple&quot;)
+
+legend(&quot;top&quot;, legend=c(&quot;Manual acupuncture&quot;, &quot;Sham acupuncture&quot;, &quot;Usual care&quot;),
+       col=c(&quot;purple&quot;, &quot;orange&quot;, &quot;red&quot;), lwd=1)</code></pre>
+<p> </p>
+</div>
+<div id="the-published" class="section level3">
+<h3>The Published</h3>
+<p>To replicate the published figure, some changes in the layout are needed.</p>
+<p><img src="R-Graphs_files/figure-html/FIG_X2-1.png" width="2800" style="display: block; margin: auto;" /></p>
+<p>To fit this figure to your own data, you may want to change the values saved for <code>XMIN</code>,<code>XMAX</code>, <code>YMIN</code> and <code>YMAX</code>, the position of the ticks on the x-axis which currently reads <code>c(0,2,4,6,8)</code>, the position of the horizontal lines plotting area which reads <code>h=c(2,4,6)</code>, and the position of the legend which currently reads <code>8.7</code> on the y axis.</p>
+<pre class="r"><code>library(plotrix) #If the plotrix package is not installed, run this: install.packages(&quot;plotrix&quot;)
+library(berryFunctions) #If the berryFunctions package is not installed, run this: install.packages(&quot;berryFunctions&quot;)
+
+#Axis min and max
+YMAX &lt;- 8; YMIN &lt;- 0
+XMAX &lt;- 6.5; XMIN &lt;- 0.5
+
+#Plot
+plot(DATA$TIME, DATA$EST_manual, type=&quot;o&quot;, pch=20,
+     ylim=c(YMIN,YMAX+1), xlim=c(XMIN,XMAX), yaxs=&quot;i&quot;, xaxs=&quot;i&quot;, axes=F, 
+     ylab=&quot;&quot;, xlab=&quot;&quot;)
+
+#Axes and labels
+axis(2, c(0,2,4,6,8), col = NA, col.ticks = NA, las=2, line=-0.8)
+axis(1, c(1:6), labels=TIMElabel, col = NA, col.ticks = &quot;grey&quot;, tck=-0.04, line=-0.7)
+mtext(&quot;No of migraine attacks per 4 weeks&quot;, 2, 2, font=2)
+mtext(&quot;Time (week)&quot;, 1, 1.5, font=2, at=XMAX, adj=1)
+
+#Plotting area
+roundedRect(XMIN,YMIN,XMAX,YMAX, rounding=0.05, border=&quot;grey&quot;) 
+abline(h=c(2,4,6), col=&quot;grey&quot;)
+
+#Lines and CIs
+lines(DATA$TIME, DATA$EST_usual,  type=&quot;o&quot;, pch=20, lwd=3, cex=1.7, lty=3, col=&quot;deeppink3&quot;)
+plotCI(DATA$TIME, DATA$EST_usual, ui=UL_usual, li=LL_usual, add=TRUE, lwd=3, sfrac=0.006, col=&quot;deeppink3&quot;)
+
+lines(DATA$TIME, DATA$EST_sham,   type=&quot;o&quot;, pch=20, lwd=3, cex=1.7, lty=2, col=&quot;darkgoldenrod1&quot;)
+plotCI(DATA$TIME, DATA$EST_sham, ui=UL_sham, li=LL_sham, add=TRUE, lwd=3, sfrac=0.006, col=&quot;darkgoldenrod1&quot;)
+
+lines(DATA$TIME, DATA$EST_manual, type=&quot;o&quot;, pch=20, lwd=3, cex=1.7, col=&quot;mediumpurple3&quot;)
+plotCI(DATA$TIME, DATA$EST_manual, ui=UL_manual, li=LL_manual, add=TRUE, lwd=3, sfrac=0.006, col=&quot;mediumpurple3&quot;)
+
+
+legend(XMIN, 9, legend=c(&quot;Manual acupuncture&quot;, &quot;Sham acupuncture&quot;, &quot;Usual care&quot;),
+       col=c(&quot;mediumpurple3&quot;, &quot;darkgoldenrod1&quot;, &quot;deeppink3&quot;), 
+       lty=c(1,2,3), 
+       cex=0.8, lwd=3, pch=20,
+       box.lty=0, horiz=TRUE)</code></pre>
+<p> </p>
+<p>   </p>
+</div>
+</div>
+<div id="line-chart-with-confidence-intervals---published-in-bmj-open" class="section level1">
+<h1>Line chart with confidence intervals - published in BMJ Open</h1>
 <p>Let’s try to reproduce panel A in this figure published in BMJ Open by <a href="https://www.ncbi.nlm.nih.gov/pubmed/29420232" target="_blank">Roos et al. (2018)</a>, where knee surgery (arthroscopic partial meniscectomy) was compare to sham surgery (skin incision only). The graph shows the mean change from baseline at 3 and 24 months in the primary outcome (KOOS<sub>5</sub> score, a higher score is better). Further details can be found in the article.</p>
    
 <center>
 <img src="images/FIGURE_Roos_2018.png" width="1091" />
 </center>
 <p> </p>
-<div id="read-in-the-data" class="section level3">
+<div id="read-in-the-data-1" class="section level3">
 <h3>Read in the data</h3>
 <p>To make it simple, all data needed for the figure is typed into R in this format.</p>
 <pre><code>##   MONTH   Group lsmean lower.CL upper.CL
@@ -441,7 +564,7 @@ DATA &lt;- data.frame(MONTH, Group, lsmean, lower.CL, upper.CL)
 DATA</code></pre>
 <p> </p>
 </div>
-<div id="the-basic" class="section level3">
+<div id="the-basic-1" class="section level3">
 <h3>The Basic</h3>
 <p>This is the most simple plot you can make. This is the essential part of the code for making the plot.</p>
 <p><img src="R-Graphs_files/figure-html/FIG_R1-1.png" width="672" style="display: block; margin: auto;" /></p>
@@ -453,7 +576,7 @@ ggplot(DATA, aes(x = MONTH, y = lsmean, group = Group)) +
     geom_errorbar(aes(ymin = lower.CL, ymax = upper.CL)) </code></pre>
 <p> </p>
 </div>
-<div id="the-published" class="section level3">
+<div id="the-published-1" class="section level3">
 <h3>The Published</h3>
 <p>To replicate the published figure, some changes in the layout are needed.</p>
 <p><img src="R-Graphs_files/figure-html/FIG_R2-1.png" width="1608" style="display: block; margin: auto;" /></p>

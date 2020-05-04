@@ -9,6 +9,8 @@ navbar:
       href: Quick-R-Tutorial.html
     - text: "R Graphs"
       href: R-Graphs.html
+    - text: "R Plot tools"
+      href: R-Plot-tools.html
     - text: "R Art"
       href: R-Art.html
     - text: "About"

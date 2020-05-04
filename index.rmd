@@ -33,7 +33,7 @@ include_graphics(img1_path)
 \ 
 
 
-Welcome to Mai Statistics, a page providing easy access to R codes for a variety of graphs - ready for you to use. If you are new to R programming, consider following this quick [course](Quick-R-Tutorial.html) to get you started.
+Welcome to Mai Statistics, a page providing easy access to R codes for a variety of graphs - ready for you to use. The focus will be on figures published within medical research journals - but other fields and uses are of course possible. The page will gradually be developed, and more figures and codes will be added. If you are new to R programming, consider following this quick [course](Quick-R-Tutorial.html) to get you started.
 
 
 </center>
