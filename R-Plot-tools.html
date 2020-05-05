@@ -418,23 +418,331 @@ div.tocify {
 <p> </p>
 <div id="colors" class="section level1">
 <h1>Colors</h1>
-<p>In R, many options exist when choosing colors for a plot.</p>
+<p>In R, many options exist when choosing colors for a plot. So below you will find specify the color (usually written after <code>col=</code>) in a plotting function.</p>
 <p> </p>
 <div id="colors-by-names" class="section level3">
 <h3>Colors by names</h3>
 <p>In R, colors can be called by their names - there are a total of 657 different names. Below, I am showing 555 of these (the remaining 102 are gray 0-100 and are very similar to grey 0-100).</p>
-<p><img src="R-Plot-tools_files/figure-html/FIG_COL1-1.png" width="5500" style="display: block; margin: auto;" /></p>
+<p><img src="R-Plot-tools_files/figure-html/FIG_COL1-1.png" width="4950" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>#FYI - this is how I made the color overview
 COLNAMES &lt;- colors()[c(1:151,254:662)]
 MATRIX &lt;- matrix(c(1:length(COLNAMES)), ncol=8, nrow=70)
 x = 1:ncol(MATRIX);    y = 1:nrow(MATRIX)
+par(mar=c(0,0,0,0))
 image(x, y, t(MATRIX), col = COLNAMES, axes=F, ylab=&quot;&quot;, xlab=&quot;&quot;)
-text(rep(x,each=length(y)), rep(y,length(x)), COLNAMES, cex=0.7, 
+text(rep(x,each=length(y)), rep(y,length(x)), COLNAMES, cex=1, 
     col=c(rep(&quot;black&quot;,23),&quot;white&quot;,&quot;black&quot;,rep(&quot;white&quot;,5),
-        rep(&quot;black&quot;,42),&quot;white&quot;,rep(&quot;black&quot;,83),rep(&quot;white&quot;,20),
+        rep(&quot;black&quot;,42),&quot;white&quot;,rep(&quot;black&quot;,85),rep(&quot;white&quot;,20),
         rep(&quot;black&quot;,180),&quot;white&quot;,rep(&quot;black&quot;,15),&quot;white&quot;,
         rep(&quot;black&quot;,12),rep(&quot;white&quot;,2),rep(&quot;black&quot;,166)))</code></pre>
 <p> </p>
+</div>
+<div id="colors-by-numbers-0-to-8" class="section level3">
+<h3>Colors by numbers (0 to 8)</h3>
+<p>For convenience, the numbers 0 to 8 can be used to call 8 different colors:</p>
+<p><img src="R-Plot-tools_files/figure-html/FIG_COL2-1.png" width="1500" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>#FYI - this is how I made the color overview
+COLNAMES &lt;- c(0:8)
+MATRIX &lt;- matrix(c(1:length(COLNAMES)), ncol=2, nrow=5)
+x = 1:ncol(MATRIX);    y = 1:nrow(MATRIX)
+par(mar=c(0,0,0,0))
+image(x, y, t(MATRIX), col = COLNAMES, axes=F, ylab=&quot;&quot;, xlab=&quot;&quot;)
+text(rep(x,each=length(y)), rep(y,length(x)), COLNAMES, cex=1, font=2,
+    col=c(&quot;black&quot;,&quot;white&quot;,rep(&quot;black&quot;,7),&quot;white&quot;))</code></pre>
+<p> </p>
+</div>
+<div id="colors-by-hexadecimals-and-rgb" class="section level3">
+<h3>Colors by hexadecimals and RGB</h3>
+<p>For more advanced users, it is possible to specify the colors as hexadecimals, which is a system that describes colors in terms of red, green, and blue (#rrggbb), each character having 16 possible symbols: 0 to 9 and A to F.</p>
+<p>Another system, RGB (red, green, blue) can be used as well, specified with the function <code>rgb(r,g,b)</code>, where each symbol is on an intensity scale from 0-1. If you are searching for a very specific color, you may use an RGB color picker like <a href="https://www.rapidtables.com/web/color/RGB_Color.html" target="_blank">this one</a> (just remember to divide by 255 before inserting the numbers in the <code>rgb</code> function).</p>
+<p>More info can be found in this <a href="https://www.nceas.ucsb.edu/sites/default/files/2020-04/colorPaletteCheatsheet.pdf" target="_blank">cheatsheet</a>.</p>
+<p>The color names (or numbers) can easily be converted to hexadecimals with the <code>col2hex</code> function (from the <code>gplots</code> package), hexadecimals can be converted to color names with the <code>color.id</code> function (<code>plotrix</code> package), and hexadecimals (or color names) can be converted to rgb with the <code>col2rgb</code> function (<code>grDevices</code> package). Click on ‘CODE’ to see examples.</p>
+<pre class="r"><code>#Hex from color names og numbers
+library(gplots) #If the gplots package is not installed, run this: install.packages(&quot;gplots&quot;)
+col2hex(c(&quot;white&quot;,&quot;black&quot;,&quot;red&quot;,&quot;green&quot;,&quot;blue&quot;,&quot;cyan&quot;,&quot;magenta&quot;,&quot;yellow&quot;,&quot;grey&quot;,&quot;black&quot;, &quot;violetred4&quot;))
+col2hex(c(1:8)) #Numbers cannot be 0 or below 
+
+#Color names from hex
+library(plotrix) #If the plotrix package is not installed, run this: install.packages(&quot;plotrix&quot;)
+color.id(c(&quot;#8B2252&quot;)) #To convert more colors at once, use sapply( as shown below.
+sapply(c(&quot;#FFFFFF&quot;,&quot;#000000&quot;,&quot;#FF0000&quot;,&quot;#00FF00&quot;,&quot;#0000FF&quot;,&quot;#00FFFF&quot;,&quot;#FF00FF&quot;,&quot;#FFFF00&quot;,&quot;#BEBEBE&quot;,&quot;#000000&quot;,&quot;#8B2252&quot;), color.id)
+
+#RGB from hex or color name (NB, gives rgb on a scale from 0-255. Divide by 255 to use these in the rgb-function)
+library(grDevices) #If the grDevices package is not installed, run this: install.packages(&quot;grDevices&quot;)
+col2rgb(c(&quot;#8B2252&quot;, &quot;violetred4&quot;))/255</code></pre>
+<p><img src="R-Plot-tools_files/figure-html/FIG_COL3-1.png" width="1500" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>#FYI - this is how I made the color overview
+library(gplots) #If the gplots package is not installed, run this: install.packages(&quot;gplots&quot;)
+library(plotrix) #If the plotrix package is not installed, run this: install.packages(&quot;plotrix&quot;)
+library(grDevices) #If the grDevices package is not installed, run this: install.packages(&quot;grDevices&quot;)
+
+COLNAMES_Numbers &lt;- c(c(0:8),&quot;[none]&quot;)
+COLNAMES_Hex &lt;- col2hex(c(&quot;white&quot;,1:8,&quot;violetred4&quot;))
+COLNAMES_Names &lt;- sapply(COLNAMES_Hex, color.id)
+COLNAMES_Names &lt;- as.vector(unlist(lapply(COLNAMES_Names, `[[`, 1))) #Using only one name for each
+COLNAMES_RGB &lt;- as.data.frame(sapply(as.data.frame(t(col2rgb(COLNAMES_Names)/255)),round,2)) #Only 3 decimals
+COLNAMES_RGB &lt;- paste(&quot;rgb(&quot;,COLNAMES_RGB$red,&quot;,&quot;,COLNAMES_RGB$green,&quot;,&quot;,COLNAMES_RGB$blue,&quot;)&quot;,sep=&quot;&quot;) #Organize
+
+COLNAMES &lt;- paste(COLNAMES_Numbers, COLNAMES_Hex, COLNAMES_RGB, COLNAMES_Names, sep=&quot;  =  &quot;)
+
+MATRIX &lt;- matrix(c(1:length(COLNAMES)), ncol=2, nrow=5)
+x = 1:ncol(MATRIX);    y = 1:nrow(MATRIX)
+par(mar=c(0,0,0,0))
+image(x, y, t(MATRIX), col = COLNAMES_Hex, axes=F, ylab=&quot;&quot;, xlab=&quot;&quot;)
+text(rep(x,each=length(y)), rep(y,length(x)), COLNAMES, cex=1, font=2,
+    col=c(&quot;black&quot;,&quot;white&quot;,&quot;black&quot;,&quot;black&quot;,&quot;white&quot;,rep(&quot;black&quot;,4),&quot;white&quot;))</code></pre>
+<p> </p>
+</div>
+<div id="transparent-colors" class="section level3">
+<h3>Transparent colors</h3>
+<p>For all colors, it is possible to specify transparancy. For color names, you will need the <code>transparent</code> function (<code>yarrr</code> package). For hexadecimals and RGB, you just add an extra value to the codes, i.e. #rrggbbaa and rgb(r,g,b,a), respectively. Below, you can see with and without adding ‘0.2’ in the RGB code for violetred4 in a plot with random numbers.</p>
+<p><img src="R-Plot-tools_files/figure-html/FIG_COL4-1.png" width="1500" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>#FYI - this is how I made the color overview
+par(mfrow=c(2,1), mar=c(2,2,3,1))
+plot(rnorm(100), pch=20, cex=5, ann=F, col=rgb(0.55,0.13,0.32), yaxt=&#39;n&#39;, xaxt=&#39;n&#39;)
+mtext(&quot;Here, the color is specified as col=rgb(0.55,0.13,0.32)&quot;, side=3, line=0.5, font=2)
+plot(rnorm(100), pch=20, cex=5, ann=F, col=rgb(0.55,0.13,0.32,0.2), yaxt=&#39;n&#39;, xaxt=&#39;n&#39;)
+mtext(&quot;Here, the color is specified as col=rgb(0.55,0.13,0.32,0.2)&quot;, side=3, line=0.5, font=2)</code></pre>
+<p>For color names and RGB, the added value is going from 0.0 to 1.0, whereas for hexdecimals, the symbols to add are less forward. See a full list of codes for transparency <a href="https://gist.github.com/lopspower/03fb1cc0ac9f32ef38f4" target="_blank">here</a>.</p>
+<p><img src="R-Plot-tools_files/figure-html/FIG_COL5-1.png" width="1200" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>#FYI - this is how I made the color overview
+par(mfrow=c(3,1), mar=c(4,2,0,2))
+
+library(yarrr) #If the yarrr package is not installed, run this: install.packages(&quot;yarrr&quot;)
+
+plot(0:10/10, rep(1,11), pch=20, cex=5, ann=F, yaxt=&#39;n&#39;, xaxt=&#39;n&#39;, bty=&#39;n&#39;, ylim=c(0,4),
+     col=c(transparent(&quot;violetred4&quot;, 1), 
+           transparent(&quot;violetred4&quot;, 0.9), 
+           transparent(&quot;violetred4&quot;, 0.8), 
+           transparent(&quot;violetred4&quot;, 0.7), 
+           transparent(&quot;violetred4&quot;, 0.6), 
+           transparent(&quot;violetred4&quot;, 0.5), 
+           transparent(&quot;violetred4&quot;, 0.4), 
+           transparent(&quot;violetred4&quot;, 0.3), 
+           transparent(&quot;violetred4&quot;, 0.2), 
+           transparent(&quot;violetred4&quot;, 0.1), 
+           transparent(&quot;violetred4&quot;, 0.0)))
+#mtext(&#39;Color specified as col = transparent(&quot;violetred4&quot;,trans.val=[a])&#39;, side=1, line=2.5, font=2)
+text(0.5,2, &#39;Color specified as col = transparent(&quot;violetred4&quot;,[a])&#39;, font=2, cex=1.4)
+mtext(&quot;[a]&quot;, side=1, line=0.3, at=1.05)
+axis(1,at=c(0:10/10), labels=rev(c(0:10/10)))
+
+
+plot(0:10/10, rep(1,11), pch=20, cex=5, ann=F, yaxt=&#39;n&#39;, bty=&#39;n&#39;, ylim=c(0,4),
+     col=c(rgb(0.55,0.13,0.32,0), 
+           rgb(0.55,0.13,0.32,0.1),
+           rgb(0.55,0.13,0.32,0.2),
+           rgb(0.55,0.13,0.32,0.3),
+           rgb(0.55,0.13,0.32,0.4),
+           rgb(0.55,0.13,0.32,0.5),
+           rgb(0.55,0.13,0.32,0.6),
+           rgb(0.55,0.13,0.32,0.7),
+           rgb(0.55,0.13,0.32,0.8),
+           rgb(0.55,0.13,0.32,0.9),
+           rgb(0.55,0.13,0.32,1)))
+#mtext(&quot;Color specified as col = rgb(0.55,0.13,[a])&quot;, side=1, line=2.5, font=2)
+text(0.5,2, &quot;Color specified as col = rgb(0.55,0.13,[a])&quot;, font=2, cex=1.5)
+mtext(&quot;[a]&quot;, side=1, line=0.3, at=1.04)
+axis(1,at=c(0:10/10))
+
+
+plot(0:10/10, rep(1,11), pch=20, cex=5, ann=F, yaxt=&#39;n&#39;, xaxt=&#39;n&#39;, bty=&#39;n&#39;, ylim=c(0,4),
+     col=c(&quot;#8B225200&quot;, 
+           &quot;#8B22521A&quot;, 
+           &quot;#8B225233&quot;, 
+           &quot;#8B22524D&quot;, 
+           &quot;#8B225266&quot;, 
+           &quot;#8B225280&quot;, 
+           &quot;#8B225299&quot;, 
+           &quot;#8B2252B3&quot;, 
+           &quot;#8B2252CC&quot;, 
+           &quot;#8B2252E6&quot;, 
+           &quot;#8B2252FF&quot;))
+#mtext(&#39;Color specified as col = &quot;#8B2252[aa]&quot;&#39;, side=1, line=2.5, font=2)
+text(0.5,2, &#39;Color specified as col = &quot;#8B2252[aa]&quot;&#39;, font=2, cex=1.5)
+mtext(&quot;[aa]&quot;, side=1, line=0.3, at=1.04)
+axis(1,at=c(0:10/10), labels=c(&quot;00&quot;,&quot;1A&quot;,&quot;33&quot;,&quot;4D&quot;,&quot;66&quot;,&quot;80&quot;,&quot;99&quot;,&quot;B3&quot;,&quot;CC&quot;,&quot;E6&quot;,&quot;FF&quot;))</code></pre>
+<p> </p>
+</div>
+<div id="color-palettes" class="section level3">
+<h3>Color palettes</h3>
+<p>There exists different types of color palattes from many different packages. They all have in comon, that you choose the number of different colors you want from the palettes, and they return the hexadecimal codes. Below, you can find a selection of color palette functions.</p>
+<p><img src="R-Plot-tools_files/figure-html/FIG_COL6-1.png" width="2400" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>#FYI - this is how I made the color overview
+library(&quot;grDevices&quot;)
+library(&quot;colorRamps&quot;)
+library(&quot;colorspace&quot;)
+
+layout(matrix(c(1,1,2,1,1,2), nrow = 2, ncol = 3, byrow = TRUE), widths=c(2,1), heights=c(3))
+
+par(mar=c(0,9,0,0))
+N &lt;- 100
+COLORS_grDevices &lt;- c(&quot;rainbow&quot;,&quot;heat.colors&quot;,&quot;terrain.colors&quot;,&quot;topo.colors&quot;,&quot;cm.colors&quot;)
+COLORS_colorRamps &lt;- c(&quot;blue2red&quot;,&quot;blue2green&quot;,&quot;green2red&quot;,&quot;blue2yellow&quot;,&quot;cyan2yellow&quot;,&quot;magenta2green&quot;,&quot;matlab.like&quot;,&quot;matlab.like2&quot;,&quot;primary.colors&quot;, &quot;ygobb&quot;)
+COLORS_colorspace &lt;- c(&quot;diverge_hsv&quot;,&quot;diverge_hcl&quot;,&quot;terrain_hcl&quot;,&quot;heat_hcl&quot;, &quot;sequential_hcl&quot;,&quot;rainbow_hcl&quot;)
+TEXT &lt;- c(&quot;colorspace package&quot;,&quot;colorRamps package&quot;,&quot;grDevices package&quot;)
+
+COLORS &lt;- c(COLORS_colorspace,&quot;&quot;,COLORS_colorRamps,&quot;&quot;,COLORS_grDevices,&quot;&quot;)
+YMAX &lt;- length(COLORS)
+LABELS &lt;- paste(COLORS,&quot;(&quot;,N,&quot;)&quot;,sep=&quot;&quot;)
+LABELS &lt;- ifelse(LABELS==paste(&quot;(&quot;,N,&quot;)&quot;,sep=&quot;&quot;),&quot;&quot;,LABELS)
+
+plot(1:N, rep(1,N), ylim=c(1,YMAX), yaxt=&#39;n&#39;, xaxt=&#39;n&#39;, ann=F, bty=&#39;n&#39;)
+axis(2, at=c(1:YMAX)+0.02, labels=LABELS, las=1, cex.axis=1, col = NA, col.ticks = 0)
+
+x&lt;-1
+for(i in 1:YMAX){
+  if(COLORS[i]==&quot;&quot;){
+    text(50, i, TEXT[x],font=2)
+    x&lt;-x+1
+    }else{
+    points(1:N, rep(i,N), pch=15, cex=3, col=do.call(COLORS[i],list(N)))
+    }
+}
+ 
+
+N &lt;- 6
+COLORS_grDevices &lt;- c(&quot;rainbow&quot;,&quot;heat.colors&quot;,&quot;terrain.colors&quot;,&quot;topo.colors&quot;,&quot;cm.colors&quot;)
+COLORS_colorRamps &lt;- c(&quot;blue2red&quot;,&quot;blue2green&quot;,&quot;green2red&quot;,&quot;blue2yellow&quot;,&quot;cyan2yellow&quot;,&quot;magenta2green&quot;,&quot;matlab.like&quot;,&quot;matlab.like2&quot;,&quot;primary.colors&quot;, &quot;ygobb&quot;)
+COLORS_colorspace &lt;- c(&quot;diverge_hsv&quot;,&quot;diverge_hcl&quot;,&quot;terrain_hcl&quot;,&quot;heat_hcl&quot;, &quot;sequential_hcl&quot;,&quot;rainbow_hcl&quot;)
+TEXT &lt;- c(&quot;grDevices package&quot;,&quot;colorRamps package&quot;,&quot;colorspace package&quot;)
+
+COLORS &lt;- c(COLORS_grDevices,&quot;&quot;,COLORS_colorRamps,&quot;&quot;,COLORS_colorspace,&quot;&quot;)
+YMAX &lt;- length(COLORS)
+LABELS &lt;- paste(COLORS,&quot;(&quot;,N,&quot;)&quot;,sep=&quot;&quot;)
+LABELS &lt;- ifelse(LABELS==paste(&quot;(&quot;,N,&quot;)&quot;,sep=&quot;&quot;),&quot;&quot;,LABELS)
+
+plot(1:N, rep(1,N), ylim=c(1,YMAX), yaxt=&#39;n&#39;, xaxt=&#39;n&#39;, ann=F, bty=&#39;n&#39;)
+axis(2, at=c(1:YMAX)+0.02, labels=LABELS, las=1, cex.axis=1, col = NA, col.ticks = 0)
+
+x&lt;-1
+for(i in 1:YMAX){
+  if(COLORS[i]==&quot;&quot;){
+    text(50, i, TEXT[x],font=2)
+    x&lt;-x+1
+    }else{
+    points(1:N, rep(i,N), pch=15, cex=3, col=do.call(COLORS[i],list(N)))
+    }
+}</code></pre>
+<p>Some palettes have a maximum number of different colors they can return - this is the case for the palettes from the <code>RColorBrewer</code> package. You would call the colors by using the function <code>brewer.pal</code>, e.g. like this <code>brewer.pal(8,&quot;Set3&quot;)</code>.</p>
+<p><img src="R-Plot-tools_files/figure-html/FIG_COL7-1.png" width="1500" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>#FYI - this is how I made the color overview
+library(RColorBrewer)
+par(mar=c(0,8,2,5))
+display.brewer.all()
+mtext(&#39;RColorBrewer package, brewer.pal(9,&quot;____&quot;)&#39;, side=3, font=2)</code></pre>
+<p>You may find the following guidelines useful when you choose a palette <a href="https://www.r-graph-gallery.com/38-rcolorbrewers-palettes.html" target="_blank">(source)</a>.</p>
+<ul>
+<li><p>Sequential palettes (i.e. incrasing in color intensity) are suited for ordered data, using light colors for low data values and darker colors for high data values.</p></li>
+<li><p>Qualitative palettes (i.e. different colors with no aparent order) are used to create clear visual differences between objects, and are best suited to represent nominal or categorical data.</p></li>
+<li><p>Diverging palettes (i.e. increasing in color intensity from the middle and towards the ends) put equal emphasis on mid-range critical values and extremes at both ends of the data range.</p></li>
+</ul>
+<p><img src="R-Plot-tools_files/figure-html/FIG_COL8-1.png" width="2000" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>#FYI - this is how I made the color overview
+
+library(&quot;colorspace&quot;)
+
+layout(matrix(c(1,1,2,1,1,2), nrow = 2, ncol = 3, byrow = TRUE), widths=c(2,1), heights=c(3))
+
+par(mar=c(0,9,2,0))
+N &lt;- 100
+COLORS_colorspace_Quali &lt;- c(&quot;Pastel 1&quot;,&quot;Dark 2&quot;,&quot;Dark 3&quot;,&quot;Set 2&quot;,&quot;Set 3&quot;,&quot;Warm&quot;,&quot;Cold&quot;,&quot;Harmonic&quot;,&quot;Dynamic&quot;)
+COLORS_colorspace_Seq &lt;- c(&quot;Grays&quot;,&quot;Light Grays&quot;,&quot;Blues 2&quot;,&quot;Blues 3&quot;,&quot;Purples 2&quot;,&quot;Purples 3&quot;,&quot;Reds 2&quot;,&quot;Reds 3&quot;,&quot;Greens 2&quot;,&quot;Greens 3&quot;,&quot;Oslo&quot;)
+COLORS_colorspace_SeqM &lt;- c(&quot;Purple-Blue&quot;,&quot;Red-Purple&quot;,&quot;Red-Blue&quot;,&quot;Purple-Orange&quot;,&quot;Purple-Yellow&quot;,&quot;Blue-Yellow&quot;,&quot;Green-Yellow&quot;,&quot;Red-Yellow&quot;,&quot;Heat&quot;,&quot;Heat 2&quot;,&quot;Terrain&quot;,&quot;Terrain 2&quot;,&quot;Viridis&quot;,&quot;Plasma&quot;,&quot;Inferno&quot;,&quot;Dark Mint&quot;,&quot;Mint&quot;,&quot;BluGrn&quot;,&quot;Teal&quot;,&quot;TealGrn&quot;,&quot;Emrld&quot;,&quot;BluYl&quot;,&quot;ag_GrnYl&quot;,&quot;Peach&quot;,&quot;PinkYl&quot;,&quot;Burg&quot;,&quot;BurgYl&quot;,&quot;RedOr&quot;,&quot;OrYel&quot;,&quot;Purp&quot;,&quot;PurpOr&quot;,&quot;Sunset&quot;,&quot;Magenta&quot;,&quot;SunsetDark&quot;,&quot;ag_Sunset&quot;,&quot;BrwnYl&quot;,&quot;YlOrRd&quot;,&quot;YlOrBr&quot;,&quot;OrRd&quot;,&quot;Oranges&quot;,&quot;YlGn&quot;,&quot;YlGnBu&quot;,&quot;Reds&quot;,&quot;RdPu&quot;,&quot;PuRd&quot;,&quot;Purples&quot;,&quot;PuBuGn&quot;,&quot;PuBu&quot;,&quot;Greens&quot;,&quot;BuGn&quot;,&quot;GnBu&quot;,&quot;BuPu&quot;,&quot;Blues&quot;,&quot;Lajolla&quot;,&quot;Turku&quot;)
+COLORS_colorspace_Div &lt;- c(&quot;Blue-Red&quot;,&quot;Blue-Red 2&quot;,&quot;Blue-Red 3&quot;,&quot;Red-Green&quot;,&quot;Purple-Green&quot;,&quot;Purple-Brown&quot;,&quot;Green-Brown&quot;,&quot;Blue-Yellow 2&quot;,&quot;Blue-Yellow 3&quot;,&quot;Green-Orange&quot;,&quot;Cyan-Magenta&quot;,&quot;Tropic&quot;,&quot;Broc&quot;,&quot;Cork&quot;,&quot;Vik&quot;,&quot;Berlin&quot;,&quot;Lisbon&quot;,&quot;Tofino&quot;)
+
+TEXT &lt;- c(paste(&#39;diverge_hcl(&#39;,N,&#39;,&quot;__&quot;)&#39;,sep=&quot;&quot;),
+          paste(&#39;qualitative_hcl(&#39;,N,&#39;,&quot;__&quot;)&#39;,sep=&quot;&quot;),
+          paste(&#39;sequential_hcl(&#39;,N,&#39;,&quot;__&quot;)&#39;,sep=&quot;&quot;))
+
+COLORS &lt;- c(COLORS_colorspace_Div,&quot;&quot;,COLORS_colorspace_Quali,&quot;&quot;,COLORS_colorspace_Seq,COLORS_colorspace_SeqM,&quot;&quot;)
+YMAX &lt;- length(COLORS)
+LABELS &lt;- COLORS
+
+plot(1:N, rep(1,N), ylim=c(1,YMAX), yaxt=&#39;n&#39;, xaxt=&#39;n&#39;, ann=F, bty=&#39;n&#39;)
+axis(2, at=c(1:YMAX)+0.02, labels=LABELS, las=1, cex.axis=1, col = NA, col.ticks = 0)
+mtext(&quot;colorspace package&quot;,side=3,line=-1.5)
+
+x&lt;-1
+for(i in 1:YMAX){
+  if(COLORS[i]==&quot;&quot;){
+    text(50, i, TEXT[x],font=2)
+    x&lt;-x+1
+    }else{
+      if(x==1){points(1:N, rep(i,N), pch=15, cex=3, col=diverge_hcl(N,COLORS[i]))}
+      if(x==2){points(1:N, rep(i,N), pch=15, cex=3, col=qualitative_hcl(N,COLORS[i]))}
+      if(x==3){points(1:N, rep(i,N), pch=15, cex=3, col=sequential_hcl(N,COLORS[i]))}
+    }
+}
+ 
+
+N &lt;- 6
+TEXT &lt;- c(paste(&#39;...(&#39;,N,&#39;,&quot;___&quot;)&#39;,sep=&quot;&quot;),
+          paste(&#39;...(&#39;,N,&#39;,&quot;___&quot;)&#39;,sep=&quot;&quot;),
+          paste(&#39;...(&#39;,N,&#39;,&quot;___&quot;)&#39;,sep=&quot;&quot;))
+
+plot(1:N, rep(1,N), ylim=c(1,YMAX), yaxt=&#39;n&#39;, xaxt=&#39;n&#39;, ann=F, bty=&#39;n&#39;)
+axis(2, at=c(1:YMAX)+0.02, labels=LABELS, las=1, cex.axis=1, col = NA, col.ticks = 0)
+
+x&lt;-1
+for(i in 1:YMAX){
+  if(COLORS[i]==&quot;&quot;){
+    text(3, i, TEXT[x],font=2)
+    x&lt;-x+1
+    }else{
+      if(x==1){points(1:N, rep(i,N), pch=15, cex=3, col=diverge_hcl(N,COLORS[i]))}
+      if(x==2){points(1:N, rep(i,N), pch=15, cex=3, col=qualitative_hcl(N,COLORS[i]))}
+      if(x==3){points(1:N, rep(i,N), pch=15, cex=3, col=sequential_hcl(N,COLORS[i]))}
+    }
+}
+ 
+#Build-in overview:  hcl_palettes(plot = TRUE) </code></pre>
+<p>Some packages also offers functions for making your own color pallette, such as the <code>dichromat</code> package where you can use the function <code>colorRampPalette</code>, e.g. like this <code>colorRampPalette(c(&quot;red&quot;, &quot;yellow&quot;))(10)</code>.</p>
+<p> </p>
+</div>
+<div id="examples" class="section level3">
+<h3>Examples</h3>
+<p>Below, different ways to write colors and using color palettes from different packages are demonstrated on simple barplots.</p>
+<p><img src="R-Plot-tools_files/figure-html/FIG_COL9-1.png" width="2400" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>library(&quot;grDevices&quot;)
+library(&quot;colorRamps&quot;)
+library(&quot;colorspace&quot;)
+library(&quot;RColorBrewer&quot;)
+library(&quot;dichromat&quot;)
+
+par(mfrow=c(3,3), mar=c(0.1,3,5,0))
+
+#Top row: Three ways to write the same colors
+barplot(c(1,8,6,5,3,7,6,2,8,5), col=c(&quot;magenta&quot;,&quot;cyan&quot;,&quot;yellow&quot;), 
+        main=&#39;Using col=c(&quot;magenta&quot;,&quot;cyan&quot;,&quot;yellow&quot;)&#39;, cex.main=0.9)
+
+barplot(c(1,8,6,5,3,7,6,2,8,5), col=c(6,5,7), 
+        main=&#39;Using col=c(6,5,7)&#39;, cex.main=0.9)
+
+barplot(c(1,8,6,5,3,7,6,2,8,5), col=c(&quot;#FF00FF&quot;,&quot;#00FFFF&quot;,&quot;#FFFF00&quot;), 
+        main=&#39;Using col=c(&quot;#FFDDFF&quot;,&quot;#00FFFF&quot;,&quot;#FFFF00&quot;)&#39;, cex.main=0.9)
+
+
+#Mid row: Functions from the packages grDevices, colorRamps and colorspace
+barplot(c(1,8,6,5,3,7,6,2,8,5), col=rainbow(10), 
+        main=&quot;Using col=rainbow(10)&quot;, cex.main=0.9)
+
+barplot(c(1,8,6,5,3,7,6,2,8,5), col=matlab.like2(10), 
+        main=&quot;Using col=matlab.like2(10)&quot;, cex.main=0.9)
+
+barplot(c(1,8,6,5,3,7,6,2,8,5), col=rainbow_hcl(10), 
+        main=&quot;Using col=rainbow_hcl(10)&quot;, cex.main=0.9)
+
+
+#Bottom row: Functions from the packages RColorBrewer and colorspace
+barplot(c(1,8,6,5,3,7,6,2,8,5), col=brewer.pal(10,&quot;Set3&quot;), 
+        main=&#39;Using col=brewer.pal(8,&quot;Set3&quot;)&#39;, cex.main=0.9)
+
+barplot(c(1,8,6,5,3,7,6,2,8,5), col=sequential_hcl(10,&quot;Inferno&quot;), 
+        main=&#39;Using col=sequential_hcl(10,&quot;Inferno&quot;)&#39;, cex.main=0.9)
+
+barplot(c(1,8,6,5,3,7,6,2,8,5), col=colorRampPalette(c(&quot;cyan&quot;, &quot;red&quot;))(10), 
+        main=&#39;Using col=colorRampPalette(c(cyan, &quot;red&quot;))(10)&#39;, cex.main=0.9)</code></pre>
 </div>
 </div>
 
