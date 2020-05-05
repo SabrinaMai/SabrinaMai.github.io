@@ -710,7 +710,7 @@ library(&quot;colorspace&quot;)
 library(&quot;RColorBrewer&quot;)
 library(&quot;dichromat&quot;)
 
-par(mfrow=c(3,3), mar=c(0.1,3,5,0))
+par(mfrow=c(4,3), mar=c(0.1,3,5,0))
 
 #Top row: Three ways to write the same colors
 barplot(c(1,8,6,5,3,7,6,2,8,5), col=c(&quot;magenta&quot;,&quot;cyan&quot;,&quot;yellow&quot;), 
@@ -723,26 +723,42 @@ barplot(c(1,8,6,5,3,7,6,2,8,5), col=c(&quot;#FF00FF&quot;,&quot;#00FFFF&quot;,&q
         main=&#39;Using col=c(&quot;#FFDDFF&quot;,&quot;#00FFFF&quot;,&quot;#FFFF00&quot;)&#39;, cex.main=0.9)
 
 
-#Mid row: Functions from the packages grDevices, colorRamps and colorspace
+#Upper-mid row: Functions from the packages grDevices, colorRamps and RColorBrewer
 barplot(c(1,8,6,5,3,7,6,2,8,5), col=rainbow(10), 
         main=&quot;Using col=rainbow(10)&quot;, cex.main=0.9)
 
 barplot(c(1,8,6,5,3,7,6,2,8,5), col=matlab.like2(10), 
         main=&quot;Using col=matlab.like2(10)&quot;, cex.main=0.9)
 
-barplot(c(1,8,6,5,3,7,6,2,8,5), col=rainbow_hcl(10), 
-        main=&quot;Using col=rainbow_hcl(10)&quot;, cex.main=0.9)
 
-
-#Bottom row: Functions from the packages RColorBrewer and colorspace
 barplot(c(1,8,6,5,3,7,6,2,8,5), col=brewer.pal(10,&quot;Set3&quot;), 
         main=&#39;Using col=brewer.pal(8,&quot;Set3&quot;)&#39;, cex.main=0.9)
+
+
+#Lower-mid row: Functions from the package colorspace
+barplot(c(1,8,6,5,3,7,6,2,8,5), col=rainbow_hcl(10), 
+        main=&quot;Using col=rainbow_hcl(10)&quot;, cex.main=0.9)
 
 barplot(c(1,8,6,5,3,7,6,2,8,5), col=sequential_hcl(10,&quot;Inferno&quot;), 
         main=&#39;Using col=sequential_hcl(10,&quot;Inferno&quot;)&#39;, cex.main=0.9)
 
-barplot(c(1,8,6,5,3,7,6,2,8,5), col=colorRampPalette(c(&quot;cyan&quot;, &quot;red&quot;))(10), 
-        main=&#39;Using col=colorRampPalette(c(cyan, &quot;red&quot;))(10)&#39;, cex.main=0.9)</code></pre>
+barplot(c(1,8,6,5,3,7,6,2,8,5), col=qualitative_hcl(10,&quot;Cold&quot;), 
+        main=&#39;Using col=qualitative_hcl(10,&quot;Cold&quot;)&#39;, cex.main=0.9)
+
+
+#Bottom row: Functions from the packages colorspace and dichromat, and using transparent colors
+
+barplot(c(1,8,6,5,3,7,6,2,8,5), col=diverge_hcl(10,&quot;Tropic&quot;), 
+        main=&#39;Using col=diverge_hcl(10,&quot;Tropic&quot;)&#39;, cex.main=0.9)
+
+
+barplot(c(1,8,6,5,3,7,6,2,8,5), col=colorRampPalette(c(&quot;yellow&quot;,&quot;red&quot;))(10), 
+        main=&#39;Using col=colorRampPalette(c(&quot;yellow&quot;,&quot;red&quot;))(10)&#39;, cex.main=0.9)
+
+
+barplot(c(1,2,5,4,5,3,7,8,8,10), col=rgb(0,0.1,0.3,0.4), 
+        main=&#39;Two plots w. transparent colors&#39;, cex.main=0.9)
+barplot(c(10,8,4,7,4,5,4,2,2,3), col=rgb(0.5,0.1,0.3,0.4), add=TRUE)</code></pre>
 </div>
 </div>
 
