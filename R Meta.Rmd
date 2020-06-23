@@ -42,12 +42,12 @@ include_graphics(img1_path)
 ###Read in the data
 
 To make it simple, all data needed for the figure is typed into R in this format. 
-(Data can often be downloaded from Cochrane reviews with the option 'Download statistical data' and read using 'Review Manager', from which it can be copy-pasted to e.g. Excel)
+(Data can often be downloaded directly from Cochrane reviews with the option 'Download statistical data' and read using 'Review Manager', from which it can be copy-pasted to e.g. Excel)
 
 ```{r FIG_B0, echo=FALSE}
 Study <- c("Case 2003","Golden 2004","Miceli-Richard 2004","Prior 2014","Zoppi 1995","Altman 2007 (1)","Altman 2007 (2)","Case 2003","Herrero-Beaumont 2007","Miceli-Richard 2004","Pincus 2004a","Pincus 2004b","Prior 2014")
 
-Term <- c("Immediate term","Immediate term","Immediate term","Immediate term","Immediate term","Short term","Short term","Short term","Short term","Short term","Short term","Short term","Short term")
+Term <- c("Immediate","Immediate","Immediate","Immediate","Immediate","Short","Short","Short","Short","Short","Short","Short","Short")
 
 Mean_I <- c(-0.9,-22.2,-16,-26.4,-20,-22.8,-26.5,-4.8,-2.4,-23.6,-17.4,-13.8,-30)
 SD_I <- c(11.7,18.1,21,24.2,21.5,21.6,25.5,16.6,3.1454,21.7,26,23.7,20.9)
@@ -58,6 +58,7 @@ N_C <- c(26,149,356,275,28,82,83,19,104,262,172,182,172)
 
 
 DATA <- as.data.frame(cbind(Study, Term, Mean_I, SD_I, N_I, Mean_C, SD_C, N_C))
+DATA
 ```
 
 Click on 'CODE' to see how the data is typed into R - use the same principle for your own data.
