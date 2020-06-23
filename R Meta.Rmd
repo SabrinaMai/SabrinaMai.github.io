@@ -1,0 +1,70 @@
+---
+title: "R Meta"
+author: "by S. M. Nielsen"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    code_folding: hide
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, include=FALSE}
+
+library(knitr)    # For knitting document and include_graphics function
+library(metafor)  # For meta-analysis and plotting
+library(png)      # For grabbing the dimensions of png files
+
+```
+
+\ 
+
+# Meta-analysis and forest plot - published in Cochrane review (Cochrane style)
+
+Let's try to reproduce first meta-analysis and forest plot presented in the Cochrane review by <a href="https://www.cochranelibrary.com/cdsr/doi/10.1002/14651858.CD013273/full" target="_blank">Leopoldino et al. (2019)</a>, where the benefits and harms of paracetamol versus placebo for knee and hip osteoarthritis was investigated.
+
+The forest plot shows the effect on pain (expressed on scale of 0 to 100) at immediate term (follow-up two weeks or less) or short term (follow-up more than two weeks but three months or less). Further details can be found in the article.
+
+\  
+\ 
+<center>
+```{r echo=FALSE}
+img1_path <- "images//FIGURE_Cochrane_Leopoldino_2019.png"
+include_graphics(img1_path)
+```
+</center>
+
+\ 
+
+###Read in the data
+
+To make it simple, all data needed for the figure is typed into R in this format. 
+(Data can often be downloaded from Cochrane reviews with the option 'Download statistical data' and read using 'Review Manager', from which it can be copy-pasted to e.g. Excel)
+
+```{r FIG_B0, echo=FALSE}
+Study <- c("Case 2003","Golden 2004","Miceli-Richard 2004","Prior 2014","Zoppi 1995","Altman 2007 (1)","Altman 2007 (2)","Case 2003","Herrero-Beaumont 2007","Miceli-Richard 2004","Pincus 2004a","Pincus 2004b","Prior 2014")
+
+Term <- c("Immediate term","Immediate term","Immediate term","Immediate term","Immediate term","Short term","Short term","Short term","Short term","Short term","Short term","Short term","Short term")
+
+Mean_I <- c(-0.9,-22.2,-16,-26.4,-20,-22.8,-26.5,-4.8,-2.4,-23.6,-17.4,-13.8,-30)
+SD_I <- c(11.7,18.1,21,24.2,21.5,21.6,25.5,16.6,3.1454,21.7,26,23.7,20.9)
+N_I <- c(27,145,385,267,28,158,160,22,108,298,171,185,177)
+Mean_C <- c(-0.3,-18,-15,-20.5,-10.8,-19.6,-19.6,-3.1,-1.8,-22.8,-10.5,-7.6,-25.8)
+SD_C <- c(10.5,16.5,21,24.5,18,22.5,22.5,19.7,3.5994,21.7,25.2,26.9,20.3)
+N_C <- c(26,149,356,275,28,82,83,19,104,262,172,182,172)
+
+
+DATA <- as.data.frame(cbind(Study, Term, Mean_I, SD_I, N_I, Mean_C, SD_C, N_C))
+```
+
+Click on 'CODE' to see how the data is typed into R - use the same principle for your own data.
+
+```{r FIG_B0, eval=FALSE}
+```
+
+
+
+For the analysis, you will need the package 'metafor'.
