@@ -7,8 +7,8 @@ navbar:
       href: index.html
     - text: "R Basics"
       href: Quick-R-Tutorial.html
-    - text: "R_Meta"
-      href: R-Meta.html
+    - text: "R Meta"
+      href: R_Meta.html
     - text: "R Graphs"
       href: R-Graphs.html
     - text: "R Plot tools"
