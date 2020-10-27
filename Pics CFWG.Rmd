@@ -1,0 +1,47 @@
+---
+title: "CFWG"
+output: html_document
+---
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, include=FALSE)
+```
+
+
+```{r fig.align="center"}
+
+library(knitr)    # For knitting document and include_graphics function
+library(ggplot2)  # For plotting
+library(png)      # For grabbing the dimensions of png files
+
+img1_path <- "images//CFWG_1.png"
+img2_path <- "images//CFWG_2.png"
+img3_path <- "images//CFWG_3.png"
+
+```
+
+<center>
+\  
+\ 
+
+#Pics for CFWG
+
+
+```{r include=TRUE}
+include_graphics(img1_path)
+```
+
+
+
+```{r include=TRUE}
+include_graphics(img2_path)
+```
+
+
+
+```{r include=TRUE}
+include_graphics(img3_path)
+```
+

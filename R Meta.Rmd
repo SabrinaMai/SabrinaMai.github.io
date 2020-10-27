@@ -49,15 +49,19 @@ Study <- c("Case 2003","Golden 2004","Miceli-Richard 2004","Prior 2014","Zoppi 1
 
 Term <- c("Immediate","Immediate","Immediate","Immediate","Immediate","Short","Short","Short","Short","Short","Short","Short","Short")
 
-Mean_I <- c(-0.9,-22.2,-16,-26.4,-20,-22.8,-26.5,-4.8,-2.4,-23.6,-17.4,-13.8,-30)
+Mean_I <- as.numeric(c(-0.9,-22.2,-16,-26.4,-20,-22.8,-26.5,-4.8,-2.4,-23.6,-17.4,-13.8,-30))
 SD_I <- c(11.7,18.1,21,24.2,21.5,21.6,25.5,16.6,3.1454,21.7,26,23.7,20.9)
 N_I <- c(27,145,385,267,28,158,160,22,108,298,171,185,177)
 Mean_C <- c(-0.3,-18,-15,-20.5,-10.8,-19.6,-19.6,-3.1,-1.8,-22.8,-10.5,-7.6,-25.8)
 SD_C <- c(10.5,16.5,21,24.5,18,22.5,22.5,19.7,3.5994,21.7,25.2,26.9,20.3)
 N_C <- c(26,149,356,275,28,82,83,19,104,262,172,182,172)
 
-
 DATA <- as.data.frame(cbind(Study, Term, Mean_I, SD_I, N_I, Mean_C, SD_C, N_C))
+
+#Change to correct data type
+DATA[,c(3:8)] <- sapply(DATA[,c(3:8)],as.character)
+DATA[,c(3:8)] <- sapply(DATA[,c(3:8)],as.numeric)
+
 DATA
 ```
 
@@ -68,4 +72,31 @@ Click on 'CODE' to see how the data is typed into R - use the same principle for
 
 
 
-For the analysis, you will need the package 'metafor'.
+\  
+
+### The Basic
+
+This is the most simple plot you can make. This is the essential part of the code for making the plot.
+
+```{r FIG_X1, echo=FALSE, fig.align='center', message=FALSE, warning=FALSE}
+require(metafor) #If the metafor package is not installed, run this: install.packages("metafor")
+
+MA_DATA <- escalc(measure="MD", m1i=Mean_I, sd1i=SD_I, m2i=Mean_C, sd2i=SD_C, n1i=N_I, n2i=N_C, data=DATA)
+
+rma(yi, vi, data=subset(MA_DATA, Term=="Immediate"), method="REML")
+rma(yi, vi, data=subset(MA_DATA, Term=="Short"), method="REML")	#WHY NOT EXACT SAME??
+
+http://www.metafor-project.org/doku.php/plots:forest_plot_with_subgroups
+https://www.rdocumentation.org/packages/metafor/versions/2.4-0/topics/forest.rma
+
+# subsetting??
+
+```
+
+Show the code by clicking on 'CODE'.
+
+```{r FIG_X1, eval=FALSE}
+```
+
+
+\  
